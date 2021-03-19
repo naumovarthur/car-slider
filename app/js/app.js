@@ -1,6 +1,6 @@
 //@ts-check
-import {Swiper, Parallax, Mousewheel} from 'swiper'
-Swiper.use([Parallax, Mousewheel])
+import {Swiper, Parallax, Mousewheel, Controller} from 'swiper'
+Swiper.use([Parallax, Mousewheel, Controller])
 
 document.addEventListener('DOMContentLoaded', () => {
 	const sliderImg = new Swiper('.slider-img', {
@@ -11,4 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			invert: false
 		}
 	})
+
+	const sliderText = new Swiper('.slider-text', {
+		loop: false,
+		speed: 2400,
+		mousewheel: {
+			invert: false
+		}
+	})
+
+	sliderImg.controller.control = sliderText
+	sliderText.controller.control = sliderImg
 })
