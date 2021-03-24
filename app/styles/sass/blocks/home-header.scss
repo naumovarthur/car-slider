@@ -387,3 +387,16 @@ html {
     }
   }
 }
+
+.slider-gear {
+  width: 470px;
+  height: 470px;
+  position: absolute;
+  background-image: url(../images/dist/gear.svg);
+  background-size: cover;
+  background-position: center;
+  top: 50%;
+  z-index: 2;
+  margin-top: -270px;
+  right: calc(24% - 235px);
+}
