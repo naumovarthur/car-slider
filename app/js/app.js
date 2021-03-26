@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		parallax: true,
 		mousewheel: {
 			invert: false
+		},
+		pagination: {
+			el: '.slider-pagination-count .total',
+			type: 'custom',
+			renderCustom: function(swiper, current, total) {
+				return `0${total}`
+			}
 		}
 	})
 
@@ -50,6 +57,44 @@ document.addEventListener('DOMContentLoaded', () => {
 		gsap.to(gear, 2.8, {
 			rotation: "-=40",
 			ease: Power2.easeOut
+		})
+	})
+
+	let curnum = document.querySelector('.slider-pagination-count .current'),
+		pagnum = document.querySelector('.slider-pagination-current__num')
+	
+	sliderText.on('slideChange', function() {
+		let index = sliderText.realIndex + 1
+		gsap.to(curnum, .2, {
+			force3D: true,
+			y: -10,
+			opacity: 0,
+			ease: Power2.easeOut,
+			onComplete: function() {
+				gsap.to(curnum, .1, {
+					force3D: true,
+					y: 10
+				})
+				curnum.innerHTML = `0${index}`
+			}
+		})
+		gsap.to(curnum, .2, {
+			force3D: true,
+			y: 0,
+			opacity: 1,
+			ease: Power2.easeOut,
+			delay: .3
+		})
+
+		gsap.to(pagnum, .4, {
+			opacity: 0,
+			onComplete: function() {
+				pagnum.innerHTML = `0${index}`
+			}
+		})
+		gsap.to(pagnum, .4, {
+			opacity: 1,
+			delay: .5
 		})
 	})
 })
