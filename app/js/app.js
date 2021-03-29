@@ -4,7 +4,17 @@ Swiper.use([Parallax, Mousewheel, Controller, Pagination, Scrollbar, Navigation]
 
 import {gsap, Power2} from 'gsap'
 
+import MicroModal from 'micromodal'
+
 document.addEventListener('DOMContentLoaded', () => {
+	MicroModal.init({
+		openTrigger: 'data-micromodal-open',
+		closeTrigger: 'data-micromodal-close',
+		disableFocus: true,
+		disableScroll: true,
+		awaitOpenAnimation: true,
+		awaitCloseAnimation: true
+	})
 	const sliderImg = new Swiper('.slider-img', {
 		loop: false,
 		speed: 2400,
@@ -16,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			el: '.slider-pagination-count .total',
 			type: 'custom',
 			renderCustom: function(swiper, current, total) {
-				return `0${total}`
+				let totalRes = total >= 10 ? total : `0${total}`
+				return totalRes
 			}
 		}
 	})
@@ -65,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	sliderText.on('slideChange', function() {
 		let index = sliderText.realIndex + 1
+		let indexRes = index >= 10 ? `${index}` : `0${index}`
 		gsap.to(curnum, .2, {
 			force3D: true,
 			y: -10,
@@ -75,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					force3D: true,
 					y: 10
 				})
-				curnum.innerHTML = `0${index}`
+				curnum.innerHTML = indexRes
 			}
 		})
 		gsap.to(curnum, .2, {
@@ -89,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		gsap.to(pagnum, .4, {
 			opacity: 0,
 			onComplete: function() {
-				pagnum.innerHTML = `0${index}`
+				pagnum.innerHTML = indexRes
 			}
 		})
 		gsap.to(pagnum, .4, {
